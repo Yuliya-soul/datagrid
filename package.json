@@ -12,8 +12,13 @@
     "lodash": "^4.17.15",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-paginate": "^6.3.2",
     "react-scripts": "3.4.0",
-    "react-text-ellipsis": "^1.6.0"
+    "react-sticky": "^6.0.3",
+    "react-text-ellipsis": "^1.6.0",
+    "react-toggle": "^4.1.1",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,5 +1,7 @@
 import React from 'react';
 import TextEllipsis from 'react-text-ellipsis';
+import Toggle from 'react-toggle';
+
 function getTime(time){
    const moonLanding = new Date(`${time}`);
 return moonLanding.getTime();
@@ -15,23 +17,24 @@ if (sort==='desc') return '▼'
 }
 
 export default props => (
-    <table className="table">
-        <thead>
+    <table className="table" style={{ cursor: "pointer" }}>
+ {props.search}
+        <thead className="sticky">
             <tr>
                 <th onClick={props.onSort.bind(null, 'id')}>
-                    ID {props.sortField === 'id' ? <small>{Triangle(props.sort)}</small> : null}
+                        ID{props.sortField === 'id' ? <small>{Triangle(props.sort)}</small> : null}
                  </th>
                 <th onClick={props.onSort.bind(null, 'firstName')}>
-                      First Name  {props.sortField === 'firstName' ? <small>{Triangle(props.sort)}</small> : null}
+                      First Name{" "} {props.sortField === 'firstName' ? <small>{Triangle(props.sort)}</small> : null}
                 </th>
                 <th onClick={props.onSort.bind(null, 'lastName')}>
-                    Last Name {props.sortField === 'lastName' ? <small>{Triangle(props.sort)}</small> : null}
+                     Last Name{" "}{props.sortField === 'lastName' ? <small>{Triangle(props.sort)}</small> : null}
                 </th>
                 <th onClick={props.onSort.bind(null, 'category')}>
                     Category {props.sortField === 'category' ? <small>{Triangle(props.sort)}</small> : null}
                 </th>
                 <th onClick={props.onSort.bind(null, 'email')}>
-                    E-mail {props.sortField === 'email' ? <small>{Triangle(props.sort)}</small> : null}
+                      E-mail{" "}{props.sortField === 'email' ? <small>{Triangle(props.sort)}</small> : null}
                 </th>
                 <th onClick={props.onSort.bind(null, 'phone')}>
                     Phone {props.sortField === 'phone' ? <small>{Triangle(props.sort)}</small> : null}
@@ -43,7 +46,10 @@ export default props => (
                     Description {props.sortField === 'description' ? <small>{Triangle(props.sort)}</small> : null}
                 </th>
                 <th onClick={props.onSort.bind(null, 'active')}>
-                    active  {props.sortField === 'active' ? <small>{Triangle(props.sort)}</small> : null}
+                    Active    <Toggle
+                    defaultChecked={true}
+                    name='active'
+                    value='yes' />
                 </th>
                 <th onClick={props.onSort.bind(null, 'date')} >
                     Date {props.sortField === 'date' ? <small>{Triangle(props.sort)}</small> : null}
