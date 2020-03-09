@@ -18,8 +18,7 @@ if (sort==='desc') return '▼'
 
 export default props => (
     <table className="table" style={{ cursor: "pointer" }}>
- {props.search}
-        <thead className="sticky">
+        <thead className="header" >
             <tr>
                 <th onClick={props.onSort.bind(null, 'id')}>
                         ID{props.sortField === 'id' ? <small>{Triangle(props.sort)}</small> : null}
@@ -92,10 +91,11 @@ export default props => (
                          <td>{''+item.active}</td>
                     <td>{''+getTime(item.x)}</td>
                     <td>{item.x}</td>
-                            <td>{''+NumberToLocale(item.x1)}</td>
+                    <td>{''+NumberToLocale(item.x1)}</td>
   
                 </tr>
             ))}
         </tbody>
     </table>
 )
+

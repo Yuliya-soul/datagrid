@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import Loader from './Loader';
 import Table from './Table';
@@ -7,12 +6,7 @@ import ReactPaginate from 'react-paginate';
 import TableSearch from './TableSearch';
 import { StickyContainer, Sticky } from 'react-sticky';
 import './style.css';
-//var faker = require('faker');
-//faker.locale = 'ru';
-//faker.seed(123);
-//var user = { login: faker.internet.email(), name: faker.name.firstName(), surname: faker.name.lastName(), country: faker.address.country(), avatar: faker.image.avatar(), }
- 
-//console.log(user);
+import data1 from'./data';
 
 class App extends Component {
   state ={
@@ -26,16 +20,15 @@ class App extends Component {
     currentPage: 0,
     search: '',
   }
-  
+ 
  async componentDidMount() {
-    const response = await fetch(` http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&x1={randomDecimalRange}&category=["Mentor","Student","Activist"]&address={addressObject}&active={bool}&x={date|10-10-2010,10-12-2010}&description={lorem|32}`)
+    const response = await fetch(` http://www.filltext.com/?rows=100&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&x1={randomDecimalRange}&category=["Mentor","Student","Activist"]&address={addressObject}&active={bool}&x={date|10-10-2010,10-12-2010}&description={lorem|32}`)
     const data = await response.json()
-    //console.log(data)
+
     this.setState({
       isLoading: false,
       data: _.orderBy(data, this.state.sortField, this.state.sort)
     })
-
   }
 
   onSort = sortField => {
@@ -47,8 +40,7 @@ class App extends Component {
 
  searchHandler = search => {
    console.log(search)
-  
-   this.setState({search, currentPage: 0})
+     this.setState({search, currentPage: 0})
   }
  onRowSelect = row => {
 
@@ -60,12 +52,28 @@ class App extends Component {
  pageChangeHandler = ({selected}) => (
   this.setState({currentPage: selected})
 )
+getFilteredData(){
+  const {data, search} = this.state
+
+  if (!search) {
+    return data
+  }
+
+  return data.filter(item => {
+    return item['firstName'].toLowerCase().includes(search.toLowerCase())
+      || item['lastName'].toLowerCase().includes(search.toLowerCase())
+      || item['email'].toLowerCase().includes(search.toLowerCase())
+  })
+}
+
   render() {
-    const pageSize=10;
-    const pageCount = 30
+   const pageSize=10;
+    const filteredData = this.getFilteredData();
+    console.log(filteredData);
     
     return (
       <div className="container">
+       
         <StickyContainer>
         {
         this.state.isLoading 
@@ -83,14 +91,14 @@ class App extends Component {
           </React.Fragment>
       }
 
-      {
+{
         this.state.data.length > pageSize
         ? <ReactPaginate
         previousLabel={'<'}
         nextLabel={'>'}
         breakLabel={'...'}
         breakClassName={'break-me'}
-        pageCount={pageCount}
+        pageCount={20}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={this.pageChangeHandler}
@@ -102,8 +110,8 @@ class App extends Component {
         nextClassName="page-item"
         previousLinkClassName="page-link"
         nextLinkClassName="page-link"
-        forcePage={this.state.currentPage}
-      /> : null}
+      /> : null
+      }
      
           
   <Sticky>{({ style }) => 
