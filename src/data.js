@@ -18,7 +18,7 @@ return{
 };
 
 }
-const data1 =[...new Array(40)].map((_,index)=>makeFake(index));
+const data1 =[...new Array(50)].map((_,index)=>makeFake(index));
 
 
 export default{

@@ -75,7 +75,7 @@ handleActiveChange= IsActive=> {
             <Toggle
               defaultChecked={this.state.IsActive}
               onChange={this.handleActiveChange} />
-             <span>Active users state :{''+JSON.stringify(this.state.IsActive)}</span> 
+             <span>Active users state{''+JSON.stringify(this.state.IsActive)}</span> 
              <TableFaker 
               filteredData={filteredData}
               onSort={this.onSort}
