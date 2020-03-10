@@ -30,15 +30,21 @@ class AppFaker extends Component {
   getFilteredData(){
     const {search} = this.state;
     const {data} = this.state;
+  
+ console.log(this.state.IsActive)
     if (!search) {
-     
-    return data
+      var result = data.filter(item => {
+        return (
+        item["isActive"]===this.state.IsActive
+        );
+        });
+    return result
     }
-    var result = data.filter(item => {
+   result = data.filter(item => {
     return (
-    item["name"].toLowerCase().includes(search.toLowerCase()) ||
+    (item["name"].toLowerCase().includes(search.toLowerCase()) ||
     item["lastName"].toLowerCase().includes(search.toLowerCase()) ||
-    item["email"].toLowerCase().includes(search.toLowerCase())
+    item["email"].toLowerCase().includes(search.toLowerCase()) )&item["isActive"]===this.state.IsActive
     );
     });
     if(!result.length){
@@ -69,7 +75,7 @@ handleActiveChange= IsActive=> {
             <Toggle
               defaultChecked={this.state.IsActive}
               onChange={this.handleActiveChange} />
-             <span>Active Students Only {''+JSON.stringify(this.state.IsActive)}</span> 
+             <span>Active users state :{''+JSON.stringify(this.state.IsActive)}</span> 
              <TableFaker 
               filteredData={filteredData}
               onSort={this.onSort}

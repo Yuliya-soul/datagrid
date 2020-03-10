@@ -2,7 +2,6 @@ import React from 'react';
 import TextEllipsis from 'react-text-ellipsis';
 import { StickyContainer, Sticky } from 'react-sticky';
 
-
 function Triangle(sort){
 if (sort==='asc') return '▲'
 if (sort==='desc') return '▼'
@@ -11,8 +10,9 @@ if (sort==='desc') return '▼'
 export default props => (
         
   <StickyContainer>
-    <table className="table" style={{ cursor: "pointer" }}>
-        <thead className="header" >
+    <table class="table  table-hover "style={{ cursor: "pointer" }}>
+    <caption>Created 16/03/2020</caption>
+        <thead >
             <tr>
                 <th onClick={props.onSort.bind(null, 'id')}>
                   ID{props.sortField === 'id' ? <small>{Triangle(props.sort)}</small> : null}
@@ -32,8 +32,8 @@ export default props => (
                 <th onClick={props.onSort.bind(null, 'LocationName')}>
                    LocationName {props.sortField === 'LocationName' ? <small>{Triangle(props.sort)}</small> : null}
                 </th>
-                <th onClick={props.onSort.bind(null, 'isActive')}>
-                   isActive {props.sortField === 'isActive' ? <small>{Triangle(props.sort)}</small> : null}
+                <th> 
+                  isActive
                 </th>
                 <th onClick={props.onSort.bind(null, 'phone')}>
                    Phone {props.sortField === 'phone' ? <small>{Triangle(props.sort)}</small> : null}
@@ -101,25 +101,25 @@ export default props => (
         </tbody>
     </table>
     <Sticky>{({ style }) => 
-   <table className="table" style={{ cursor: "pointer" }}>
-  <thead style={style}>
-      <tr>
-          <th>ID</th>
-          <th>Rank</th> 
-          <th>Name</th> 
-          <th>Last Name</th> 
-          <th>E-mail</th>
-          <th>LocationName</th>
-          <th>isActive</th>
-          <th>Phone</th>
-          <th>Description</th>
-          <th>Id Number</th>
-          <th>Date</th>
-          <th>Payment</th>
-          <th>Currency</th>
-      </tr>
- </thead>
- </table>
+  <table class="table "style={{ cursor: "pointer" }}>
+      <thead  style={style}>
+          <tr>
+              <th>ID</th>
+              <th>Rank</th> 
+              <th>Name</th> 
+              <th>Last Name</th> 
+              <th>E-mail</th>
+              <th>LocationName</th>
+              <th>isActive</th>
+              <th>Phone</th>
+              <th>Description</th>
+              <th>Id Number</th>
+              <th>Date</th>
+              <th>Payment</th>
+              <th>Currency</th>
+          </tr>
+    </thead>
+  </table>
  }
  </Sticky>
     </StickyContainer>
