@@ -8,6 +8,8 @@ import './style.css';
 import data1 from'./data';
 import TableFaker from './TableFaker';
 import ReactPaginate from 'react-paginate';
+import SelectButton from './Components/SelectButton'
+
 
 
 class AppFaker extends Component {
@@ -22,22 +24,26 @@ class AppFaker extends Component {
     search: '',
     filteredData:'',
     IsActive: false,
+    CurrencySymbol: null,
 }
   searchHandler = search => {
     this.setState({search});
+  }
+
+  setCurrencySymbol = value => {
+     this.setState({CurrencySymbol: value});
   }
   
   getFilteredData(){
     const {search} = this.state;
     const {data} = this.state;
-  
- console.log(this.state.IsActive)
-    if (!search) {
-      var result = data.filter(item => {
+const{CurrencySymbol}=this.state;
+
+    if ((!search)&(CurrencySymbol==='')) {
+       var result = data.filter(item => {
         return (
-        item["isActive"]===this.state.IsActive
-        );
-        });
+        item["isActive"]===this.state.IsActive)
+              });
     return result
     }
    result = data.filter(item => {
@@ -45,6 +51,7 @@ class AppFaker extends Component {
     (item["name"].toLowerCase().includes(search.toLowerCase()) ||
     item["lastName"].toLowerCase().includes(search.toLowerCase()) ||
     item["email"].toLowerCase().includes(search.toLowerCase()) )&item["isActive"]===this.state.IsActive
+    &item["currency"]===this.state.CurrencySymbol
     );
     });
     if(!result.length){
@@ -76,6 +83,11 @@ handleActiveChange= IsActive=> {
               defaultChecked={this.state.IsActive}
               onChange={this.handleActiveChange} />
              <span>Active users state{''+JSON.stringify(this.state.IsActive)}</span> 
+             <div>
+      
+             <SelectButton setValue={this.setCurrencySymbol} />
+    </div>
+          
              <TableFaker 
               filteredData={filteredData}
               onSort={this.onSort}

@@ -2,6 +2,7 @@ import React from 'react';
 import TextEllipsis from 'react-text-ellipsis';
 import { StickyContainer, Sticky } from 'react-sticky';
 
+
 function Triangle(sort){
 if (sort==='asc') return '▲'
 if (sort==='desc') return '▼'
@@ -10,7 +11,7 @@ if (sort==='desc') return '▼'
 export default props => (
         
   <StickyContainer>
-    <table class="table  table-hover "style={{ cursor: "pointer" }}>
+    <table className="table  table-hover "style={{ cursor: "pointer" }}>
     <caption>Created 16/03/2020</caption>
         <thead >
             <tr>
@@ -101,7 +102,7 @@ export default props => (
         </tbody>
     </table>
     <Sticky>{({ style }) => 
-  <table class="table "style={{ cursor: "pointer" }}>
+  <table className="table "style={{ cursor: "pointer" }}>
       <thead  style={style}>
           <tr>
               <th>ID</th>
@@ -119,6 +120,7 @@ export default props => (
               <th>Currency</th>
           </tr>
     </thead>
+ 
   </table>
  }
  </Sticky>
