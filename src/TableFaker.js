@@ -58,7 +58,7 @@ export default props => (
         </thead>
         <tbody>
             { props.filteredData.map(item =>(
-     <tr id={item.id} key={item.id + item.phone}  >
+     <tr id={item.id} key={item.id + item.phone}  onClick={props.onRowSelect.bind(null, item)} >
           <td>{item.id+1}</td>
           <td>{item.rank}</td>
           <td>{item.name}</td>

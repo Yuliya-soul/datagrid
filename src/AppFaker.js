@@ -8,8 +8,9 @@ import './style.css';
 import data1 from'./data';
 import TableFaker from './TableFaker';
 import ReactPaginate from 'react-paginate';
-import SelectButton from './Components/SelectButton'
-
+import SelectButton from './Components/SelectButton';
+import Select from 'react-select';
+import {currencyOptions} from './Components/CurrencyMulti'
 
 
 class AppFaker extends Component {
@@ -25,6 +26,8 @@ class AppFaker extends Component {
     filteredData:'',
     IsActive: false,
     CurrencySymbol: null,
+    selectedOption: null,
+   
 }
   searchHandler = search => {
     this.setState({search});
@@ -33,13 +36,20 @@ class AppFaker extends Component {
   setCurrencySymbol = value => {
      this.setState({CurrencySymbol: value});
   }
+
   
   getFilteredData(){
     const {search} = this.state;
     const {data} = this.state;
-const{CurrencySymbol}=this.state;
+    const{CurrencySymbol}=this.state;
+    const { selectedOption } = this.state;
 
-    if ((!search)&(CurrencySymbol==='')) {
+    if (selectedOption!==null){
+   const  choiceCurr =selectedOption.map(item=>item.value);
+    choiceCurr.forEach(element => (console.log(`||item["currency"]==='${element}'`)),
+    ) }
+  
+    if ((!search)&(CurrencySymbol==='')&(selectedOption===[]||selectedOption==null)) {
        var result = data.filter(item => {
         return (
         item["isActive"]===this.state.IsActive)
@@ -50,8 +60,9 @@ const{CurrencySymbol}=this.state;
     return (
     (item["name"].toLowerCase().includes(search.toLowerCase()) ||
     item["lastName"].toLowerCase().includes(search.toLowerCase()) ||
-    item["email"].toLowerCase().includes(search.toLowerCase()) )&item["isActive"]===this.state.IsActive
+    item["email"].toLowerCase().includes(search.toLowerCase())) &item["isActive"]===this.state.IsActive
     &item["currency"]===this.state.CurrencySymbol
+    //||item["currency"]==='$'
     );
     });
     if(!result.length){
@@ -71,11 +82,36 @@ handleActiveChange= IsActive=> {
   if (!this.state.IsActive){this.setState({ IsActive:true})}
   else {this.setState({ IsActive:false})}
 }
+handleCurrencyChange = selectedOption => {
+  this.setState(
+    { selectedOption },
+
+    () => console.log(`Option selected:`, this.state.selectedOption)
+  );
+    
+};
+onRowSelect = row => {
+  this.setState({row});
+  document.getElementById(`${row.id}`).classList.add('main--main-bg');
+  this.setState({prevRow: `${row.id}`})
+
+}
+Delete= () => {
+  var matches = document.querySelectorAll("tr.main--main-bg");
+console.log(matches)
+
+
+matches.forEach(function(userItem) {
+  (userItem).classList.add('hide1');
+});
+}
   render() {
     const filteredData = this.getFilteredData();
+    const { selectedOption } = this.state;
+
        return (
-      <div className="container">
-     {this.state.isLoading 
+    <div className="container">
+       {this.state.isLoading 
         ? <Loader />
         : <React.Fragment>
             <TableSearch onSearch={this.searchHandler}/>
@@ -83,11 +119,23 @@ handleActiveChange= IsActive=> {
               defaultChecked={this.state.IsActive}
               onChange={this.handleActiveChange} />
              <span>Active users state{''+JSON.stringify(this.state.IsActive)}</span> 
-             <div>
+         <div>
+            <SelectButton setValue={this.setCurrencySymbol} />
+             <Select
+                isMulti
+                name="currency"
+                 options={currencyOptions}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                value={selectedOption}
+               onChange={this.handleCurrencyChange}
       
-             <SelectButton setValue={this.setCurrencySymbol} />
-    </div>
-          
+              />
+         </div>
+         <button 
+            className="btn btn-outline-secondary"
+            onClick={this.Delete} >Hide row
+          </button>
              <TableFaker 
               filteredData={filteredData}
               onSort={this.onSort}
@@ -97,7 +145,7 @@ handleActiveChange= IsActive=> {
             />
           </React.Fragment>
       }
-
+ 
       </div>
  
      );
