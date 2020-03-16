@@ -5,7 +5,7 @@ const initialState = {
     data: [],
     sort:'',
     sortField:'rank',
-    isActive:true
+    isActive:false
 }
 
 export default (state = initialState, action) => {
@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
         console.log(action.payload);
             return {
                 ...state,
-             //   data: action.payload.newData,
+                data: action.payload.newData,
                 isActive: action.payload.isActive
             }
         default: return state;

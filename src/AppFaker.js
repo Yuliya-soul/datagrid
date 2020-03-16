@@ -7,7 +7,6 @@ import TableSearch from './TableSearch';
 import './style.css';
 import data1 from'./data';
 import TableFaker from './TableFaker';
-import ReactPaginate from 'react-paginate';
 import SelectButton from './Components/SelectButton';
 import Select from 'react-select';
 import {currencyOptions} from './Components/CurrencyMulti'

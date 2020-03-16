@@ -7,8 +7,8 @@ return{
     "name":faker.name.firstName(),
     "lastName":faker.name.lastName(),
     "email":faker.internet.email(),
-    "LocationName":faker.address.city(),
-    "isActive":faker.random.boolean(),
+    "LocationName":faker.address.streetAddress(),
+    "isActive":(faker.random.boolean()),
     "phone":faker.phone.phoneNumberFormat(),
     "description":faker.lorem.text(),
     "idNumber":faker.random.number(),
@@ -18,7 +18,7 @@ return{
 };
 
 }
-const data1 =[...new Array(100)].map((_,index)=>makeFake(index));
+const data1 =[...new Array(32)].map((_,index)=>makeFake(index));
 
 
 export default{
