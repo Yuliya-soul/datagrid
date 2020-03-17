@@ -6,7 +6,7 @@ function RoleMaker(number){
   if (number===2) return 'Mentor'
 }
 function ChangeDate(date){
-  const Xmas95 = new Date(`${date}`);
+const Xmas95 = new Date(`${date}`);
 const day = Xmas95.getDate();
 const month=Xmas95.getMonth();
 const year=Xmas95.getFullYear();
@@ -31,7 +31,7 @@ const createRow = () => ({
 
 });
 
-const createData = ((qty = 32) => {
+const createData = ((qty = 3200) => {
   let data = [];
 
   for (let i = 0; i < qty; i++) {

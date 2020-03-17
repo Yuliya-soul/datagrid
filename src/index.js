@@ -1,18 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import AppFaker from './AppFaker';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import { createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/styles";
-
-
 import { Provider } from 'react-redux';
 import store from './store';
-
 import App from "./App";
 
 const theme = createMuiTheme();

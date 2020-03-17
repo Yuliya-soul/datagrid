@@ -37,5 +37,18 @@ export const setIsActiveState=(activeSt)=>(dispatch,getState)=>{
     ) : getState().data.initData;
     dispatch({type: 'FILTERED_DATA', payload: {newData, isActive: activeSt} });
   // }
+
 }
+export const filteredRole = search => (dispatch, getState) => {
+  if (search !== "") {
+    const newData = getState().data.initData.filter(item =>
+      search.toLowerCase().includes(item["role"].toLowerCase())
+    );
+    dispatch({ type: "FILTERED_DATA", payload: { newData: newData } });
+  } else
+    dispatch({
+      type: "RESTART",
+      payload: { newData: getState().data.initData }
+    });
+};
 

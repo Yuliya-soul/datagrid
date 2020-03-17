@@ -19,7 +19,6 @@ export default (state = initialState, action) => {
             isActive:state.isActive
         };
         case "FILTERED_DATA": 
-        console.log(action.payload);
             return {
                 ...state,
                 data: action.payload.newData,

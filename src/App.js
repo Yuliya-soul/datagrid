@@ -20,20 +20,19 @@ import _ from 'lodash';
 import columns from './Components/Columns';
 import useTableStyles from'./Components/useTableStyles';
 import useStyles from './Components/UseStyles';
-import { sortData, add, selectCell,filtered,filteredLastName,filteredEmail,setIsActiveState } from './actions';
+import { sortData,filtered,filteredLastName,filteredEmail,setIsActiveState,filteredRole } from './actions';
 import './style.css';
 import { Popover, Button } from 'antd';
 import 'antd/dist/antd.css';
 import Toggle from 'react-toggle';
+import {UsersOptions} from './Components/UsersMultiSelect'
+
+import Select from 'react-select';
 
 const sortingState = ["", "asc", "desc"];
-
-
-
 const TableColumns = ({ classes, columns }) => {
-    const sortedData = useSelector(state => state.sortedData);
+const sortedData = useSelector(state => state.sortedData);
    
-    console.log(sortedData)
  const dispatch = useDispatch();
 
   return (
@@ -157,12 +156,10 @@ const createItemData = memoize((classes, columns, data) => ({
 }));
 
 const ReactWindowTable = ({ columns}) => {
-  const classes = useTableStyles();
-  const data = useSelector(state => state.data.data);
- // console.log(data);
-  const sortedData = useSelector(state => state.sortedData);
-  console.log(itemKey)
-  if (sortedData.isSorted) {
+const classes = useTableStyles();
+const data = useSelector(state => state.data.data);
+const sortedData = useSelector(state => state.sortedData);
+   if (sortedData.isSorted) {
     const itemData = createItemData(classes, columns, sortedData.data);
     return (
       <div className={classes.root}>
@@ -182,8 +179,7 @@ const ReactWindowTable = ({ columns}) => {
                     itemKey={itemKey}
                     itemData={itemData}
                 >
-                
-                     {Row}
+                    {Row}
                 </List>
               )}
             </AutoSizer>
@@ -225,8 +221,18 @@ const ReactWindowTable = ({ columns}) => {
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  
-  const active = useSelector(state => state.sortedData.isActive);
+    const active = useSelector(state => state.sortedData.isActive);
+    const handleRole = value => {
+      let str = "";
+      if (!value) {
+        dispatch(filteredRole(str));
+      } else {
+        for (let role of value) {
+          str += role.value;
+        }
+        dispatch(filteredRole(str));
+      }
+    };
   return (
     <div className={classes.root}>
        <Container maxWidth="lg" className={classes.container}>
@@ -236,8 +242,16 @@ const App = () => {
             <Toggle 
             defaultChecked={active}
             onChange={() => dispatch(setIsActiveState(!active))}/>
-                 
-                {"Users list table"}
+        
+           <Select
+                isMulti
+                name="rol"
+                options={UsersOptions}
+                className="basic-multi-select"
+                classNamePrefix="select"
+                 onChange={handleRole}
+              />  
+                {"Students list table"}
               </Typography>
 
             <div className={classes.spacer} />
